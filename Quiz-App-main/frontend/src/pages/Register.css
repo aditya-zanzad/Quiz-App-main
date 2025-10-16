@@ -1,0 +1,6 @@
+/* ✨ Register Page - Uses same modern auth styles as Login ✨ */
+
+/* Import the same auth styles from Login.css */
+@import './Login.css';
+
+/* Any register-specific overrides can go here if needed */
