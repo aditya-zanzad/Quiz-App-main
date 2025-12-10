@@ -247,6 +247,14 @@ const Sidebar = ({ isOpen = false, onClose }) => {
                                 >
                                     <Link to="/admin/quiz-ai" onClick={handleLinkClick}>📚 Quiz AI</Link>
                                 </motion.div>
+                                <motion.div
+                                    key="admin-upload-assignment"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.78, duration: 0.4 }}
+                                >
+                                    <Link to="/admin/upload-assignment" onClick={handleLinkClick}>📝 Upload PDF Assignment</Link>
+                                </motion.div>
 
                                 <motion.div
                                     key="admin-report"
@@ -503,6 +511,14 @@ const Sidebar = ({ isOpen = false, onClose }) => {
                                     transition={{ delay: 0.75, duration: 0.4 }}
                                 >
                                     <Link to="/user/assignments" onClick={handleLinkClick}>📝 Assignments</Link>
+                                </motion.div>
+                                <motion.div
+                                    key="user-questions"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.8, duration: 0.4 }}
+                                >
+                                    <Link to="/user/questions" onClick={handleLinkClick}>📖 Assigned Questions (Read-only)</Link>
                                 </motion.div>
                                 <motion.div
                                     key="user-achievements"

@@ -1,0 +1,6 @@
+{
+  "status": "FAILED",
+  "errorName": "Error",
+  "errorMessage": "Hugging Face API Error: Failed to perform inference: an HTTP error occurred when requesting the provider.",
+  "errorStack": "Error: Hugging Face API Error: Failed to perform inference: an HTTP error occurred when requesting the provider.\n    at generateFromHuggingFace (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:107:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async generateQuestionsFromParagraph (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:436:20)"
+}

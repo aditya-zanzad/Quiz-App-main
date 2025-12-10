@@ -123,8 +123,8 @@ const TakeQuiz = () => {
             if (isCurrentlyFullscreen) {
                 document.body.classList.add('quiz-fullscreen');
                 // Mobile Chrome specific fixes
-                document.documentElement.style.overflow = 'hidden';
-                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'auto';
+                document.body.style.overflow = 'auto';
                 // Prevent mobile Chrome zoom
                 document.documentElement.style.touchAction = 'manipulation';
             } else {
@@ -231,6 +231,12 @@ const TakeQuiz = () => {
 
         // Prevent multiple auto-submits
         if (autoSubmitRef.current || isSubmittingRef.current || hasAutoSubmitted) {
+            return;
+        }
+
+        // Add safety check for quiz
+        if (!quiz || !quiz.questions) {
+            console.warn("Cannot auto-submit: Quiz data not loaded");
             return;
         }
 
@@ -496,6 +502,8 @@ const TakeQuiz = () => {
         if (hasAutoSubmitted || isSubmittingRef.current) {
             return;
         }
+
+        if (!quiz || !quiz.questions) return;
 
         isSubmittingRef.current = true;
         recordAnswerTime();

@@ -47,7 +47,7 @@ const Login = () => {
     };
     const handleGoogleLogin = () => {
         // 🔒 SECURE: Use full backend URL for Google OAuth
-        const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+        const backendURL = import.meta.env.VITE_BACKEND_URL || "https://quiz-app-main-wt3p.onrender.com";
         window.location.href = `${backendURL}/api/users/google`;
     };
 

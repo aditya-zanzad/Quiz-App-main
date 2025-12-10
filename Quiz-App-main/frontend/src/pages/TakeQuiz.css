@@ -30,7 +30,7 @@
     border: 2px solid var(--quiz-border);
     box-shadow: var(--quiz-shadow-xl);
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
     min-height: 75vh;
     transform: translateZ(0); /* Hardware acceleration */
     will-change: auto;

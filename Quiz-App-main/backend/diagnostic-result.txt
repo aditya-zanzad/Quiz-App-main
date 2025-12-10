@@ -1,0 +1,36 @@
+
+=== HUGGING FACE API DIAGNOSTIC ===
+
+1. API Key Check:
+   Γ£à API Key found
+   Key preview: hf_AIzVhyX...HTsvjK
+   Key length: 37 characters
+
+2. Model Configuration:
+   Model: mistralai/Mistral-7B-Instruct-v0.2
+
+3. Testing API Connection:
+   Sending test request...
+   Γ¥î API Connection Failed!
+
+4. Error Details:
+   Error Type: InferenceClientProviderApiError
+   Error Message: Failed to perform inference: an HTTP error occurred when requesting the provider.
+
+5. Troubleshooting:
+   Γ¥î Unknown Error
+
+   Solutions:
+   1. Check your internet connection
+   2. Verify the API key is correct
+   3. Try again in a few minutes
+   4. Full error: Failed to perform inference: an HTTP error occurred when requesting the provider.
+
+6. Stack Trace:
+   ProviderApiError: Failed to perform inference: an HTTP error occurred when requesting the provider.
+       at innerRequest (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/utils/request.js:53:23)
+       at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+       at async chatCompletion (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/tasks/nlp/chatCompletion.js:18:32)
+       at async testAPI (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/diagnose-api.js:51:26)
+
+=== DIAGNOSTIC COMPLETE ===

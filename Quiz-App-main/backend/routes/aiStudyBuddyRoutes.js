@@ -1,13 +1,53 @@
 import express from "express";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { HfInference } from "@huggingface/inference";
 import { verifyToken } from "../middleware/auth.js";
 import User from "../models/User.js";
 import Quiz from "../models/Quiz.js";
 
 const router = express.Router();
 
-// Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Initialize Hugging Face AI
+const hf = process.env.HUGGINGFACE_API_KEY ? new HfInference(process.env.HUGGINGFACE_API_KEY) : null;
+const MODEL = process.env.HUGGINGFACE_MODEL || "mistralai/Mistral-7B-Instruct-v0.2";
+
+// Helper function to call Hugging Face API
+async function generateAIResponse(prompt) {
+    if (!hf) {
+        throw new Error("Hugging Face AI not initialized - API key missing");
+    }
+
+    try {
+        const response = await hf.chatCompletion({
+            model: MODEL,
+            messages: [
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            max_tokens: 2000,
+            temperature: 0.7,
+            top_p: 0.95
+        });
+
+        return response.choices[0]?.message?.content || "";
+    } catch (chatError) {
+        // Fallback to textGeneration if chatCompletion fails
+        console.log("ChatCompletion failed, trying textGeneration...");
+        const response = await hf.textGeneration({
+            model: MODEL,
+            inputs: prompt,
+            parameters: {
+                max_new_tokens: 2000,
+                temperature: 0.7,
+                top_p: 0.95,
+                return_full_text: false
+            }
+        });
+
+        return response.generated_text;
+    }
+}
 
 // Study session model for persistence
 const studySessions = new Map(); // userId -> session data
@@ -353,9 +393,9 @@ router.get("/recommendations", verifyToken, async (req, res) => {
         const recentQuizzes = await Quiz.find({
             "results.userId": userId
         })
-        .sort({ createdAt: -1 })
-        .limit(10)
-        .populate("results");
+            .sort({ createdAt: -1 })
+            .limit(10)
+            .populate("results");
 
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
 
@@ -717,9 +757,9 @@ router.get("/track-progress", verifyToken, async (req, res) => {
         const recentQuizzes = await Quiz.find({
             "results.userId": userId
         })
-        .sort({ createdAt: -1 })
-        .limit(10)
-        .populate("results");
+            .sort({ createdAt: -1 })
+            .limit(10)
+            .populate("results");
 
         // Calculate progress metrics
         const totalQuizzesTaken = recentQuizzes.length;

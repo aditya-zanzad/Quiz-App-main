@@ -1,0 +1,9 @@
+[2025-12-09 07:03:34.946 PM] [32minfo[39m: 	[32m≡ƒöº Development logging enabled - logs saved to files and console[39m
+Γä╣∩╕Å Using in-memory session store (Redis disabled)
+(node:22744) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22744) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Γ£à Connected to MongoDB
+≡ƒÜÇ Running initial daily challenge reset check...
+[2025-12-09 07:03:40.470 PM] [32minfo[39m: 	[32mStarting daily challenge reset system[39m
+[2025-12-09 07:03:40.472 PM] [32minfo[39m: 	[32mLooking for challenges completed before 2025-12-08T13:33:40.472Z[39m

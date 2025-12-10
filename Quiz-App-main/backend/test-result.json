@@ -1,0 +1,19 @@
+{
+  "status": "FAILED",
+  "errorName": "ProviderApiError",
+  "errorMessage": "Failed to perform inference: an HTTP error occurred when requesting the provider.",
+  "statusCode": "unknown",
+  "httpResponse": {
+    "requestId": "Root=1-69393497-602d035468a568216842a74e",
+    "status": 400,
+    "body": {
+      "error": {
+        "message": "The requested model 'mistralai/Mistral-7B-Instruct-v0.2' is not supported by any provider you have enabled.",
+        "type": "invalid_request_error",
+        "param": "model",
+        "code": "model_not_supported"
+      }
+    }
+  },
+  "cause": null
+}

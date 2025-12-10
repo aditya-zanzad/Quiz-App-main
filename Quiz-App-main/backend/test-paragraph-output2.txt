@@ -1,0 +1,15 @@
+Testing question generation from paragraph...
+Attempting chatCompletion with model: mistralai/Mistral-7B-Instruct-v0.3
+ΓÜá∩╕Å  chatCompletion failed: Failed to perform inference: an HTTP error occurred when requesting the provider.
+Trying textGeneration as fallback...
+Defaulting to 'auto' which will select the first provider available for the model, sorted by the user's order in https://hf.co/settings/inference-providers.
+Auto selected provider: together
+Γ¥î Both chatCompletion and textGeneration failed
+Hugging Face API Error: Failed to perform inference: an HTTP error occurred when requesting the provider.
+Error details: {
+  name: 'ProviderApiError',
+  message: 'Failed to perform inference: an HTTP error occurred when requesting the provider.',
+  status: undefined
+}
+Γ¥î FAILED - check test-paragraph-result.json
+Error: Hugging Face API Error: Failed to perform inference: an HTTP error occurred when requesting the provider.

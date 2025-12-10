@@ -1,0 +1,76 @@
+≡ƒöì Gemini API Diagnostic Tool
+
+==================================================
+Γ£à API Key found: AIzaSyCKys...d8dHY
+≡ƒôÅ API Key length: 39
+==================================================
+
+≡ƒÜÇ Starting diagnostics...
+
+
+≡ƒº¬ Testing model: gemini-pro
+--------------------------------------------------
+≡ƒôñ Sending test prompt...
+Γ¥î FAILED!
+Error type: GoogleGenerativeAIFetchError
+Error message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack trace: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+≡ƒº¬ Testing model: gemini-1.5-flash
+--------------------------------------------------
+≡ƒôñ Sending test prompt...
+Γ¥î FAILED!
+Error type: GoogleGenerativeAIFetchError
+Error message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack trace: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+≡ƒº¬ Testing model: gemini-1.5-pro
+--------------------------------------------------
+≡ƒôñ Sending test prompt...
+Γ¥î FAILED!
+Error type: GoogleGenerativeAIFetchError
+Error message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack trace: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+≡ƒº¬ Testing model: gemini-1.0-pro
+--------------------------------------------------
+≡ƒôñ Sending test prompt...
+Γ¥î FAILED!
+Error type: GoogleGenerativeAIFetchError
+Error message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent: [404 Not Found] models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack trace: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent: [404 Not Found] models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+
+≡ƒôï DIAGNOSTIC SUMMARY
+==================================================
+
+Γ¥î Failed models:
+   - gemini-pro: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+   - gemini-1.5-flash: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+   - gemini-1.5-pro: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+   - gemini-1.0-pro: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent: [404 Not Found] models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+
+ΓÜá∩╕Å  NO WORKING MODELS FOUND!
+
+Possible issues:
+1. API key is invalid or expired
+2. API key doesn't have Gemini API enabled
+3. Billing is not set up for the project
+4. API quota has been exceeded
+5. Geographic restrictions apply
+
+≡ƒô¥ Next steps:
+1. Go to https://aistudio.google.com/app/apikey
+2. Verify your API key is active
+3. Check https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com
+4. Ensure Gemini API is enabled for your project
+5. Check billing at https://console.cloud.google.com/billing
+==================================================

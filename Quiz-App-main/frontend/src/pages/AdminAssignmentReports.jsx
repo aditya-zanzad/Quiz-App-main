@@ -41,6 +41,21 @@ const AdminAssignmentReports = () => {
     }
   };
 
+  const handleDeleteAssignment = async (assignmentId) => {
+    if (window.confirm('Are you sure you want to delete this assignment? This action cannot be undone.')) {
+      try {
+        const response = await axios.delete(`/api/assignments/${assignmentId}`);
+        if (response.data.success) {
+          setAssignments(assignments.filter(a => a._id !== assignmentId));
+          // Optional: Show a success toast or message
+        }
+      } catch (err) {
+        console.error('Error deleting assignment:', err);
+        setError('Failed to delete assignment');
+      }
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'active': return '#28a745';
@@ -162,6 +177,14 @@ const AdminAssignmentReports = () => {
                   >
                     📈 View Details
                   </motion.button>
+                  <motion.button
+                    onClick={() => handleDeleteAssignment(assignment._id)}
+                    className="delete-assignment-btn"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    🗑️ Delete
+                  </motion.button>
                 </div>
               </motion.div>
             ))
@@ -196,6 +219,22 @@ const AdminAssignmentReports = () => {
                   >
                     ✕
                   </button>
+                </div>
+                
+                {/* Delete Button in Modal */}
+                <div style={{ position: 'absolute', top: '1rem', right: '4rem' }}>
+                  <motion.button
+                    onClick={() => {
+                      handleDeleteAssignment(selectedAssignment.assignment.id);
+                      setShowDetails(false);
+                    }}
+                    className="delete-assignment-btn"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
+                  >
+                    🗑️ Delete Assignment
+                  </motion.button>
                 </div>
 
                 <div className="modal-content">

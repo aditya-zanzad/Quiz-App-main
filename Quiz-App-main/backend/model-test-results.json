@@ -1,0 +1,22 @@
+[
+  {
+    "success": false,
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "error": "Failed to perform inference: an HTTP error occurred when requesting the provider."
+  },
+  {
+    "success": false,
+    "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "error": "Failed to perform inference: an HTTP error occurred when requesting the provider."
+  },
+  {
+    "success": false,
+    "model": "HuggingFaceH4/zephyr-7b-beta",
+    "error": "Failed to perform inference: an HTTP error occurred when requesting the provider."
+  },
+  {
+    "success": true,
+    "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "response": "```json\n{\n  \"test\": \"success\"\n}\n```"
+  }
+]

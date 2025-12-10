@@ -1,0 +1,36 @@
+≡ƒöì Hugging Face API Diagnostic Tool
+
+==================================================
+Γ£à API Key found: hf_AIzVhyX...HTsvjK
+≡ƒôÅ API Key length: 37
+==================================================
+
+≡ƒÜÇ Testing model: mistralai/Mistral-7B-Instruct-v0.2
+--------------------------------------------------
+≡ƒôñ Sending test prompt...
+Defaulting to 'auto' which will select the first provider available for the model, sorted by the user's order in https://hf.co/settings/inference-providers.
+Auto selected provider: featherless-ai
+Γ¥î FAILED!
+
+Error type: InferenceClientInputError
+Error message: Model mistralai/Mistral-7B-Instruct-v0.2 is not supported for task text-generation and provider featherless-ai. Supported task: conversational.
+Stack trace: InputError: Model mistralai/Mistral-7B-Instruct-v0.2 is not supported for task text-generation and provider featherless-ai. Supported task: conversational.
+    at getInferenceProviderMapping (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/lib/getInferenceProviderMapping.js:93:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async makeRequestOptions (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/lib/makeRequestOptions.js:49:11)
+    at async innerRequest (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/utils/request.js:26:27)
+    at async textGeneration (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/tasks/nlp/textGeneration.js:10:32)
+    at async testAPI (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/test-huggingface-api.js:51:26)
+
+==================================================
+≡ƒôï DIAGNOSTIC SUMMARY
+==================================================
+
+Γ¥î Unknown Error
+
+≡ƒô¥ Next steps:
+1. Check your internet connection
+2. Verify the API key is correct
+3. Try again in a few minutes
+
+==================================================
