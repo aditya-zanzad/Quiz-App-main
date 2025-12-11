@@ -44,6 +44,21 @@ if (!isProduction) {
   rejectionHandlers.push(new winston.transports.File({ filename: "logs/rejection.log" }));
 }
 
+// Always add Console transport to handlers to prevent "no exception handlers" error
+exceptionHandlers.push(new winston.transports.Console({
+  format: combine(
+    colorize({ all: true }),
+    printf((info) => `[${info.timestamp}] 💥 EXCEPTION: ${info.message} \n ${info.stack}`)
+  )
+}));
+
+rejectionHandlers.push(new winston.transports.Console({
+  format: combine(
+    colorize({ all: true }),
+    printf((info) => `[${info.timestamp}] 🚨 REJECTION: ${info.message} \n ${info.stack}`)
+  )
+}));
+
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || (isProduction ? "warn" : "info"),
   exitOnError: false,   // <-- FIXED
