@@ -76,8 +76,7 @@ const limiter = rateLimit({
     legacyHeaders: false,
     validate: {
     xForwardedForHeader: false 
-  },
-    skip: (req) => req.method === "OPTIONS"
+  }
 });
 app.use(limiter);
 
