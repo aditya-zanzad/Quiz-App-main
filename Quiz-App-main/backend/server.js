@@ -44,9 +44,10 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 // Gamification controller
 import { resetDailyChallenges } from "./controllers/gamificationController.js";
 
-app.set('trust proxy', 1);
+
 
 const app = express();
+app.set('trust proxy', 1);
 
 // 🔒 SECURITY: Headers
 app.use(requestLogger);
