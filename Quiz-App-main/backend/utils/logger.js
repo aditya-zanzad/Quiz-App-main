@@ -46,6 +46,7 @@ if (!isProduction) {
 
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || (isProduction ? "warn" : "info"),
+  exitOnError: false,   // <-- FIXED
   format: combine(
     timestamp({
       format: "YYYY-MM-DD hh:mm:ss.SSS A",
@@ -59,6 +60,7 @@ const logger = winston.createLogger({
   exceptionHandlers: exceptionHandlers,
   rejectionHandlers: rejectionHandlers,
 });
+
 
 // Add production-specific logging
 if (isProduction) {
