@@ -51,8 +51,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .assignments-grid {
@@ -212,6 +217,24 @@
 .view-details-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.delete-assignment-btn {
+  padding: var(--space-md) var(--space-xl);
+  background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-left: var(--space-md);
+}
+
+.delete-assignment-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 75, 43, 0.3);
 }
 
 .no-assignments {
@@ -506,15 +529,15 @@
   .admin-assignment-reports-page {
     padding: var(--space-md);
   }
-  
+
   .assignments-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .analytics-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .assignment-metrics {
     grid-template-columns: 1fr;
   }
@@ -525,21 +548,21 @@
     max-width: 95%;
     margin: var(--space-sm);
   }
-  
+
   .distribution-item {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
   }
-  
+
   .dist-label {
     min-width: auto;
   }
-  
+
   .submissions-table-content {
     font-size: 0.8rem;
   }
-  
+
   .submissions-table-content th,
   .submissions-table-content td {
     padding: var(--space-xs) var(--space-sm);
@@ -550,11 +573,11 @@
   .assignment-report-card {
     padding: var(--space-md);
   }
-  
+
   .analytics-card {
     padding: var(--space-md);
   }
-  
+
   .submissions-table {
     padding: var(--space-md);
   }

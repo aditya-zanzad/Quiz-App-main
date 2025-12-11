@@ -27,6 +27,7 @@ const AdaptiveQuiz = lazy(() => import("./components/AdaptiveQuiz"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminQuizzes = lazy(() => import("./pages/AdminQuizzes"));
 const Quiz_ai = lazy(() => import("./pages/Quiz_ai"));
+const UploadPdfAssignment = lazy(() => import("./pages/UploadPdfAssignment"));
 const UserAssignments = lazy(() => import("./pages/UserAssignments"));
 const AdminAssignmentReports = lazy(() => import("./pages/AdminAssignmentReports"));
 const AdminReports = lazy(() => import("./pages/AdminReports"));
@@ -51,6 +52,7 @@ import PremiumQuizQuestions from "./pages/PremiumQuizQuestions";
 import Contact from "./pages/Contact";
 import UserAnalyticsDashboard from "./pages/UserAnalyticsDashboard";
 import XPLeaderboard from "./pages/XPLeaderboard";
+import UserGeneratedQuestions from "./pages/UserGeneratedQuestions";
 import ThemePage from "./pages/ThemePage";
 import HelpGuide from "./pages/HelpGuide";
 
@@ -191,6 +193,7 @@ const App = () => {
                             <Route path="/admin" element={<AdminDashboard />} />
                             <Route path="/admin/create" element={<AdminQuizzes />} />
                             <Route path="/admin/quiz-ai" element={<Quiz_ai />} />
+                            <Route path="/admin/upload-assignment" element={<UploadPdfAssignment />} />
                             <Route path="/adaptive/:id" element={<AdaptiveQuiz />} />
                             <Route path="/admin/report" element={<AdminReports />} />
                             <Route path="/admin/assignment-reports" element={<AdminAssignmentReports />} />
@@ -201,6 +204,7 @@ const App = () => {
                             <Route path="/user/test" element={<UserQuizzes />} />
                             <Route path="/user/test/:id" element={<TakeQuiz />} />
                             <Route path="/user/assignments" element={<UserAssignments />} />
+                            <Route path="/user/questions" element={<UserGeneratedQuestions />} />
                             <Route path="/user/report" element={<UserReports />} />
                             <Route path="/report/:id" element={<UserReportsCheck />} />
                             <Route path="/written-tests" element={<UserWrittenTests />} />

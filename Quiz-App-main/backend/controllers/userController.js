@@ -141,7 +141,8 @@ export const loginUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
     logger.info("Fetching all users");
     try {
-        const users = await UserQuiz.find();
+        // Exclude password and other sensitive data
+        const users = await UserQuiz.find().select("-password -__v");
         logger.info(`Successfully fetched ${users.length} users`);
         res.json(users);
     } catch (error) {

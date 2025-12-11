@@ -1,34 +1,66 @@
 import WrittenTest from "../models/WrittenTest.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { HfInference } from "@huggingface/inference";
 import logger from "../utils/logger.js";
 
 dotenv.config();
 
 // Only throw error in production, allow tests to run without API key
-if (!process.env.GEMINI_API_KEY && process.env.NODE_ENV !== "test") {
-    throw new Error("🚫 GEMINI_API_KEY is missing from .env file!");
+if (!process.env.HUGGINGFACE_API_KEY && process.env.NODE_ENV !== "test") {
+    throw new Error("🚫 HUGGINGFACE_API_KEY is missing from .env file!");
 }
 
-const genAI = process.env.GEMINI_API_KEY ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) : null;
+const hf = process.env.HUGGINGFACE_API_KEY ? new HfInference(process.env.HUGGINGFACE_API_KEY) : null;
+const MODEL = process.env.HUGGINGFACE_MODEL || "mistralai/Mistral-7B-Instruct-v0.2";
 
-const generateFromGemini = async (prompt) => {
-    if (!genAI) {
+const generateFromHuggingFace = async (prompt) => {
+    if (!hf) {
         // In test environment, return mock response
         if (process.env.NODE_ENV === "test") {
             return "Score: 8\nFeedback: Good answer";
         }
-        throw new Error("Gemini AI not initialized - API key missing");
+        throw new Error("Hugging Face AI not initialized - API key missing");
     }
 
-    const model = genAI.getGenerativeModel({ model: "models/gemini-1.5-pro-001" });
+    try {
+        // Try chatCompletion first (works with most conversational models)
+        try {
+            const response = await hf.chatCompletion({
+                model: MODEL,
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ],
+                max_tokens: 500,
+                temperature: 0.7,
+                top_p: 0.95
+            });
 
-    const result = await model.generateContent({
-        contents: [{ parts: [{ text: prompt }] }]
-    });
+            return response.choices[0]?.message?.content || "";
+        } catch (chatError) {
+            // If chatCompletion fails, try textGeneration as fallback
+            console.log("ChatCompletion failed, trying textGeneration...");
 
-    return result.response.text();
+            const response = await hf.textGeneration({
+                model: MODEL,
+                inputs: prompt,
+                parameters: {
+                    max_new_tokens: 500,
+                    temperature: 0.7,
+                    top_p: 0.95,
+                    return_full_text: false
+                }
+            });
+
+            return response.generated_text;
+        }
+    } catch (error) {
+        console.error("Hugging Face API Error:", error.message);
+        throw new Error(`Hugging Face API Error: ${error.message || "Unknown error occurred"}`);
+    }
 };
 
 export async function createWrittenTest(req, res) {
@@ -109,7 +141,7 @@ Score: 8
 Feedback: Well-structured answer with key points covered.
 `;
 
-        const geminiResponse = await generateFromGemini(prompt);
+        const geminiResponse = await generateFromHuggingFace(prompt);
 
         const scoreMatch = geminiResponse.match(/Score\s*[:-]?\s*(\d+)/i);
         const score = scoreMatch ? parseInt(scoreMatch[1], 10) : 0;

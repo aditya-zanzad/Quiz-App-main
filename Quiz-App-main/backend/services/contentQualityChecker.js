@@ -8,8 +8,9 @@ export const validateQuestion = (question) => {
     return false;
   }
 
-  if (question.options) {
-    if (question.options.length !== 4) {
+  // For MCQ questions, validate options
+  if (question.questionType === "mcq" || (!question.questionType && question.options)) {
+    if (!question.options || question.options.length !== 4) {
       return false;
     }
     if (question.options.some((o) => !o || o.length === 0)) {
@@ -17,7 +18,12 @@ export const validateQuestion = (question) => {
     }
   }
 
-  if (question.correctAnswer === undefined) {
+  // For true/false questions, correctAnswer should be boolean
+  if (question.questionType === "true_false") {
+    if (typeof question.correctAnswer !== "boolean") {
+      return false;
+    }
+  } else if (question.correctAnswer === undefined) {
     return false;
   }
 

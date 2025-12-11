@@ -94,7 +94,8 @@ const corsOptions = {
             "http://localhost:5173",
             "http://127.0.0.1:5173",
             "http://localhost:3000",
-            "http://127.0.0.1:3000"
+            "http://127.0.0.1:3000",
+            "https://quiz-app-frontend-otvk.onrender.com"
         ].filter(Boolean);
 
         const isOriginAllowed = allowedOrigins.some(allowed =>
@@ -105,8 +106,8 @@ const corsOptions = {
         console.log(`CORS blocked origin: ${origin}`);
         callback(new Error("Not allowed by CORS"));
     },
-    methods: ["GET","POST","PUT","DELETE","PATCH","OPTIONS"],
-    allowedHeaders: ["Content-Type","Authorization","X-Requested-With","Accept","Origin","Cache-Control","X-File-Name"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin", "Cache-Control", "X-File-Name"],
     credentials: true,
     optionsSuccessStatus: 200,
     preflightContinue: false

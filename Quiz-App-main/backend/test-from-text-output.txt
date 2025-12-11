@@ -1,0 +1,36 @@
+Testing generateQuestionsFromParagraph...
+
+Test paragraph: JavaScript is a high-level, interpreted programming language. 
+It is one of the core technologies of the World Wide Web, alongside HTML and CSS. 
+JavaScript enables interactive web pages and is an essential part of web applications.
+
+Generating 2 MCQ questions...
+
+ChatCompletion failed, trying textGeneration...
+Defaulting to 'auto' which will select the first provider available for the model, sorted by the user's order in https://hf.co/settings/inference-providers.
+Auto selected provider: together
+Hugging Face API Error: Model mistralai/Mistral-7B-Instruct-v0.3 is not supported for task text-generation and provider together. Supported task: conversational.
+Full Error: InferenceClientInputError: Model mistralai/Mistral-7B-Instruct-v0.3 is not supported for task text-generation and provider together. Supported task: conversational.
+    at getInferenceProviderMapping (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/lib/getInferenceProviderMapping.js:93:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async makeRequestOptions (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/lib/makeRequestOptions.js:49:11)
+    at async innerRequest (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/utils/request.js:26:27)
+    at async textGeneration (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/tasks/nlp/textGeneration.js:10:32)
+    at async generateFromHuggingFace (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:58:30)
+    at async generateQuestionsFromParagraph (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:418:20)
+Γ¥î FAILED!
+
+Error name: Error
+Error message: Hugging Face API Error: Model mistralai/Mistral-7B-Instruct-v0.3 is not supported for task text-generation and provider together. Supported task: conversational.
+
+Full error:
+Error: Hugging Face API Error: Model mistralai/Mistral-7B-Instruct-v0.3 is not supported for task text-generation and provider together. Supported task: conversational.
+    at generateFromHuggingFace (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:89:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async generateQuestionsFromParagraph (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:418:20)
+
+Stack trace:
+Error: Hugging Face API Error: Model mistralai/Mistral-7B-Instruct-v0.3 is not supported for task text-generation and provider together. Supported task: conversational.
+    at generateFromHuggingFace (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:89:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async generateQuestionsFromParagraph (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/services/aiQuestionGenerator.js:418:20)

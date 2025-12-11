@@ -34,7 +34,7 @@ const assignmentSchema = new mongoose.Schema({
         },
         questionType: {
             type: String,
-            enum: ['mcq', 'true_false'],
+            enum: ['mcq', 'true_false', 'short_answer', 'long_answer', 'brief_answer'],
             default: 'mcq'
         }
     }],
@@ -61,17 +61,17 @@ const assignmentSchema = new mongoose.Schema({
     },
     questionType: {
         type: String,
-        enum: ['mcq', 'true_false', 'mixed'],
+        enum: ['mcq', 'true_false', 'mixed', 'short_answer', 'long_answer', 'brief_answer'],
         default: 'mcq'
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'UserQuiz',
         required: true
     },
     assignedTo: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'UserQuiz'
     }],
     isActive: {
         type: Boolean,
@@ -88,7 +88,7 @@ const assignmentSchema = new mongoose.Schema({
     submissions: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'UserQuiz',
             required: true
         },
         answers: [{
@@ -147,7 +147,7 @@ assignmentSchema.index({ assignedTo: 1, isActive: 1 });
 assignmentSchema.index({ endDate: 1 });
 
 // Virtual for assignment status
-assignmentSchema.virtual('status').get(function() {
+assignmentSchema.virtual('status').get(function () {
     const now = new Date();
     if (now < this.startDate) return 'scheduled';
     if (now > this.endDate) return 'expired';
@@ -155,7 +155,7 @@ assignmentSchema.virtual('status').get(function() {
 });
 
 // Method to calculate statistics
-assignmentSchema.methods.calculateStatistics = function() {
+assignmentSchema.methods.calculateStatistics = function () {
     if (this.submissions.length === 0) {
         this.statistics = {
             totalAttempts: 0,
@@ -180,27 +180,27 @@ assignmentSchema.methods.calculateStatistics = function() {
 };
 
 // Method to check if user can take assignment
-assignmentSchema.methods.canUserTakeAssignment = function(userId) {
+assignmentSchema.methods.canUserTakeAssignment = function (userId) {
     const now = new Date();
-    
+
     // Check if assignment is active
     if (!this.isActive) return false;
-    
+
     // Check if within time range
     if (now < this.startDate || now > this.endDate) return false;
-    
+
     // Check if user is assigned
     if (!this.assignedTo.includes(userId)) return false;
-    
+
     // Check if user already submitted
     const existingSubmission = this.submissions.find(sub => sub.user.toString() === userId.toString());
     if (existingSubmission) return false;
-    
+
     return true;
 };
 
 // Method to get user's submission
-assignmentSchema.methods.getUserSubmission = function(userId) {
+assignmentSchema.methods.getUserSubmission = function (userId) {
     return this.submissions.find(sub => sub.user.toString() === userId.toString());
 };
 

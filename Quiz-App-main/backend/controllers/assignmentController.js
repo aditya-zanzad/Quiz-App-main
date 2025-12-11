@@ -38,7 +38,7 @@ export const createAssignment = async (req, res) => {
         // Determine overall difficulty and question type
         const difficulties = [...new Set(questions.map(q => q.difficulty))];
         const questionTypes = [...new Set(questions.map(q => q.questionType))];
-        
+
         const overallDifficulty = difficulties.length === 1 ? difficulties[0] : 'mixed';
         const overallQuestionType = questionTypes.length === 1 ? questionTypes[0] : 'mixed';
 
@@ -93,7 +93,7 @@ export const getAssignments = async (req, res) => {
         const { page = 1, limit = 10, status } = req.query;
 
         const query = { createdBy };
-        
+
         // Filter by status
         if (status) {
             const now = new Date();
@@ -152,10 +152,17 @@ export const getUserAssignments = async (req, res) => {
         const userId = req.user.id;
         const { page = 1, limit = 10, status } = req.query;
 
-        const query = { 
-            assignedTo: userId,
+        // Debug logging
+        logger.info(`[DEBUG] User ID: ${userId}`);
+        logger.info(`[DEBUG] User ID type: ${typeof userId}`);
+
+        // Use $in operator to properly check if userId exists in assignedTo array
+        const query = {
+            assignedTo: { $in: [userId] },
             isActive: true
         };
+
+        logger.info(`[DEBUG] Query: ${JSON.stringify(query)}`);
 
         // Filter by status
         if (status) {
@@ -182,11 +189,18 @@ export const getUserAssignments = async (req, res) => {
 
         const total = await Assignment.countDocuments(query);
 
+        logger.info(`[DEBUG] Found ${assignments.length} assignments out of ${total} total`);
+
+        // Log first assignment details if any exist
+        if (assignments.length > 0) {
+            logger.info(`[DEBUG] First assignment assignedTo: ${JSON.stringify(assignments[0].assignedTo)}`);
+        }
+
         // Add user-specific information
         const assignmentsWithUserInfo = assignments.map(assignment => {
             const userSubmission = assignment.getUserSubmission(userId);
             const canTake = assignment.canUserTakeAssignment(userId);
-            
+
             return {
                 ...assignment.toObject(),
                 userSubmission,
@@ -297,10 +311,21 @@ export const submitAssignment = async (req, res) => {
         let score = 0;
         const detailedAnswers = answers.map((answer, index) => {
             const question = assignment.questions[index];
-            const isCorrect = answer.selectedAnswer === question.correctAnswer;
-            
+            let isCorrect = false;
+
+            // Handle different question types
+            if (question.questionType === 'true_false') {
+                // For true/false, convert string to boolean if needed
+                const selectedBool = answer.selectedAnswer === 'true' || answer.selectedAnswer === true;
+                const correctBool = question.correctAnswer === true || question.correctAnswer === 'true';
+                isCorrect = selectedBool === correctBool;
+            } else {
+                // For MCQ, compare directly
+                isCorrect = answer.selectedAnswer === question.correctAnswer;
+            }
+
             if (isCorrect) score++;
-            
+
             return {
                 questionIndex: index,
                 selectedAnswer: answer.selectedAnswer,
@@ -324,7 +349,7 @@ export const submitAssignment = async (req, res) => {
 
         assignment.submissions.push(submission);
         assignment.calculateStatistics();
-        
+
         await assignment.save();
 
         logger.info(`Assignment submitted successfully. Score: ${score}/${assignment.totalMarks}`);
@@ -379,7 +404,7 @@ export const getAssignmentReports = async (req, res) => {
         const analytics = {
             totalAssigned: assignment.assignedTo.length,
             totalSubmissions: assignment.submissions.length,
-            submissionRate: assignment.assignedTo.length > 0 
+            submissionRate: assignment.assignedTo.length > 0
                 ? Math.round((assignment.submissions.length / assignment.assignedTo.length) * 100)
                 : 0,
             passRate: assignment.submissions.length > 0

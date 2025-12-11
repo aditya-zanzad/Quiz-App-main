@@ -35,7 +35,12 @@ const UserAssignments = () => {
 
   const startAssignment = (assignment) => {
     setSelectedAssignment(assignment);
-    setAnswers(new Array(assignment.questions.length).fill({ selectedAnswer: '', timeSpent: 0 }));
+    setAnswers(
+      new Array(assignment.questions.length).fill({
+        selectedAnswer: "",
+        timeSpent: 0,
+      })
+    );
     setCurrentQuestion(0);
     setTimeLeft(assignment.duration * 60); // Convert minutes to seconds
     setShowQuiz(true);
@@ -58,7 +63,7 @@ const UserAssignments = () => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = {
       selectedAnswer: answer,
-      timeSpent: selectedAssignment.duration * 60 - timeLeft
+      timeSpent: selectedAssignment.duration * 60 - timeLeft,
     };
     setAnswers(newAnswers);
   };
@@ -131,7 +136,7 @@ const UserAssignments = () => {
 
   if (showQuiz && selectedAssignment) {
     const question = selectedAssignment.questions[currentQuestion];
-    const currentAnswer = answers[currentQuestion]?.selectedAnswer || '';
+    const currentAnswer = answers[currentQuestion]?.selectedAnswer ?? "";
 
     return (
       <div className="quiz-page">
@@ -165,22 +170,91 @@ const UserAssignments = () => {
               {question.question}
             </div>
 
-            <div className="question-options">
-              {question.options.map((option, index) => (
+            {question.questionType === "mcq" && (
+              <div className="question-options">
+                {question.options.map((option, index) => (
+                  <motion.div
+                    key={index}
+                    className={`option ${
+                      currentAnswer === String.fromCharCode(65 + index) ? "selected" : ""
+                    }`}
+                    onClick={() => handleAnswerSelect(String.fromCharCode(65 + index))}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="option-letter">
+                      {String.fromCharCode(65 + index)}
+                    </span>
+                    <span className="option-text">{option}</span>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {question.questionType === "true_false" && (
+              <div className="question-options tf-options">
                 <motion.div
-                  key={index}
-                  className={`option ${currentAnswer === String.fromCharCode(65 + index) ? 'selected' : ''}`}
-                  onClick={() => handleAnswerSelect(String.fromCharCode(65 + index))}
+                  className={`option ${currentAnswer === true ? "selected" : ""}`}
+                  onClick={() => handleAnswerSelect(true)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="option-letter">
-                    {String.fromCharCode(65 + index)}
-                  </span>
-                  <span className="option-text">{option}</span>
+                  <span className="option-letter">T</span>
+                  <span className="option-text">True</span>
                 </motion.div>
-              ))}
-            </div>
+                <motion.div
+                  className={`option ${currentAnswer === false ? "selected" : ""}`}
+                  onClick={() => handleAnswerSelect(false)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="option-letter">F</span>
+                  <span className="option-text">False</span>
+                </motion.div>
+              </div>
+            )}
+
+            {question.questionType === "short_answer" && (
+              <div className="short-answer">
+                <label className="muted">Your answer (1 sentence, ~{question.maxWords || 25} words)</label>
+                <textarea
+                  rows={2}
+                  value={currentAnswer}
+                  onChange={(e) => handleAnswerSelect(e.target.value)}
+                  placeholder="Type your short answer..."
+                />
+              </div>
+            )}
+
+            {question.questionType === "brief_answer" && (
+              <div className="short-answer">
+                <label className="muted">Your answer (2-3 sentences, ~{question.maxWords || 75} words)</label>
+                <textarea
+                  rows={4}
+                  value={currentAnswer}
+                  onChange={(e) => handleAnswerSelect(e.target.value)}
+                  placeholder="Type your brief answer (2-3 sentences)..."
+                />
+                <div className="word-count">
+                  {currentAnswer.split(/\s+/).filter(w => w.length > 0).length} words
+                </div>
+              </div>
+            )}
+
+            {question.questionType === "long_answer" && (
+              <div className="short-answer">
+                <label className="muted">Your answer (detailed paragraph, ~{question.maxWords || 300} words)</label>
+                <textarea
+                  rows={10}
+                  value={currentAnswer}
+                  onChange={(e) => handleAnswerSelect(e.target.value)}
+                  placeholder="Type your detailed answer (paragraph)..."
+                />
+                <div className="word-count">
+                  {currentAnswer.split(/\s+/).filter(w => w.length > 0).length} words
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

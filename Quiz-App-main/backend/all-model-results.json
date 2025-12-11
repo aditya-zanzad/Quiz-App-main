@@ -1,0 +1,32 @@
+[
+  {
+    "success": false,
+    "model": "HuggingFaceH4/zephyr-7b-beta",
+    "error": "Model HuggingFaceH4/zephyr-7b-beta is not supported for task text-generation and provider featherless-ai. Supported task: conversational."
+  },
+  {
+    "success": false,
+    "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "error": "No Inference Provider available for model mistralai/Mixtral-8x7B-Instruct-v0.1."
+  },
+  {
+    "success": false,
+    "model": "microsoft/Phi-3-mini-4k-instruct",
+    "error": "No Inference Provider available for model microsoft/Phi-3-mini-4k-instruct."
+  },
+  {
+    "success": false,
+    "model": "google/gemma-2b-it",
+    "error": "No Inference Provider available for model google/gemma-2b-it."
+  },
+  {
+    "success": false,
+    "model": "tiiuae/falcon-7b-instruct",
+    "error": "No Inference Provider available for model tiiuae/falcon-7b-instruct."
+  },
+  {
+    "success": false,
+    "model": "bigscience/bloom-560m",
+    "error": "No Inference Provider available for model bigscience/bloom-560m."
+  }
+]

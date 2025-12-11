@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-10T08:50:26.916Z",
+  "steps": [
+    {
+      "step": "API Key Check",
+      "status": "PASS",
+      "message": "API Key found (length: 37)"
+    },
+    {
+      "step": "Model Config",
+      "status": "INFO",
+      "message": "Using model: mistralai/Mistral-7B-Instruct-v0.2"
+    },
+    {
+      "step": "API Test",
+      "status": "INFO",
+      "message": "Sending test request to Hugging Face..."
+    },
+    {
+      "step": "API Test",
+      "status": "FAIL",
+      "message": "API connection failed: Failed to perform inference: an HTTP error occurred when requesting the provider."
+    }
+  ],
+  "errorType": "Unknown Error",
+  "solution": "Check internet connection and API key",
+  "errorDetails": {
+    "message": "Failed to perform inference: an HTTP error occurred when requesting the provider.",
+    "stack": "ProviderApiError: Failed to perform inference: an HTTP error occurred when requesting the provider.\n    at innerRequest (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/utils/request.js:53:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async chatCompletion (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/node_modules/@huggingface/inference/dist/esm/tasks/nlp/chatCompletion.js:18:32)\n    at async testAPI (file:///E:/ALL%20projects/final-year-project/quiz-assignment/Quiz-App-main/Quiz-App-main/backend/diagnose-hf.js:42:26)"
+  },
+  "summary": "❌ FAILED - Unknown Error"
+}

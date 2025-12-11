@@ -175,8 +175,13 @@ export const generateQuestionsFromText = async (req, res) => {
 
         const parsed = await generateQuestionsFromParagraph(paragraph, numQuestions, questionType, difficulty);
 
-        // Validate generated questions
-        const validQuestions = parsed.questions.filter(validateQuestion);
+        // Ensure all questions have questionType field and validate
+        const validQuestions = parsed.questions
+            .map(q => ({
+                ...q,
+                questionType: q.questionType || questionType // Ensure questionType is set
+            }))
+            .filter(validateQuestion);
 
         if (validQuestions.length === 0) {
             logger.warn("No valid questions could be generated from the paragraph");
@@ -201,6 +206,23 @@ export const generateQuestionsFromText = async (req, res) => {
 
     } catch (err) {
         logger.error({ message: "Error generating questions from paragraph", error: err.message, stack: err.stack });
-        res.status(500).json({ error: "Internal server error", details: err.message });
+        
+        // Provide user-friendly error messages
+        let errorMessage = "Failed to generate questions. Please try again.";
+        
+        if (err.message.includes("Gemini API")) {
+            errorMessage = err.message;
+        } else if (err.message.includes("invalid JSON") || err.message.includes("parse")) {
+            errorMessage = "AI returned invalid response format. Please try again or check your paragraph content.";
+        } else if (err.message.includes("API key") || err.message.includes("API_KEY")) {
+            errorMessage = "Gemini API key is missing or invalid. Please contact administrator.";
+        } else if (err.message.includes("quota") || err.message.includes("rate limit")) {
+            errorMessage = "API quota exceeded. Please try again later.";
+        }
+        
+        res.status(500).json({ 
+            error: errorMessage,
+            details: process.env.NODE_ENV === "development" ? err.message : undefined
+        });
     }
 };
