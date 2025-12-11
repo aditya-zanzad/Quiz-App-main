@@ -44,7 +44,12 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 // Gamification controller
 import { resetDailyChallenges } from "./controllers/gamificationController.js";
 
+
+rateLimit.prototype.defaults.validate = {
+  xForwardedForHeader: false
+};
 const app = express();
+app.set('trust proxy', 1);
 
 // ✅ Trust Proxy for Render/Heroku (Required for Rate Limiting)
 app.set("trust proxy", 1);
@@ -66,13 +71,18 @@ app.use(helmet({
 }));
 
 // 🔒 Rate limiting
+
+
+
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100,
     message: { error: "Too many requests from this IP, please try again later." },
     standardHeaders: true,
     legacyHeaders: false,
-    skip: (req) => req.method === "OPTIONS"
+    validate: {
+    xForwardedForHeader: false 
+  }
 });
 app.use(limiter);
 
@@ -81,7 +91,8 @@ const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10,
     message: { error: "Too many authentication attempts, please try again later." },
-    skip: (req) => req.method === "OPTIONS"
+    skip: (req) => req.method === "OPTIONS",
+    validate: { xForwardedForHeader: false }
 });
 
 // Middlewares
