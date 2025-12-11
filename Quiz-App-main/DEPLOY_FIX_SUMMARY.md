@@ -11,16 +11,21 @@ Updated `backend/utils/logger.js` to **always** add a `Console` transport to `ex
 -   This satisfies Winston's requirements.
 -   This ensures that if your app crashes in production, you actually see the stack trace in the Render dashboard logs.
 
-## 2. Fixed "ValidationError: The 'X-Forwarded-For' header is set..."
-**Issue:**  
-Render puts your app behind a Load Balancer, which adds the `X-Forwarded-For` header. The `express-rate-limit` package detected this header but realized that Express was configured *not* to trust proxies (`trust proxy` is false by default). This caused a security validation error that crashed the request (and potentially the server if unhandled).
 
-**Fix:**  
-Updated `backend/server.js` to enable **Trust Proxy**:
+## 1. Fixed "Application Exited Early" (Winston Logger Error)
+... (previous content)
+
+## 2. Fixed "Rate Limit Crash" (Correctly)
+**Issue:**
+Initially, we saw an `ERR_ERL_UNEXPECTED_X_FORWARDED_FOR` error. We tried to fix it by modifying `rateLimit.prototype.defaults`, but this accessed an undefined property and caused the app to crash with `TypeError: Cannot read properties of undefined (reading 'defaults')`.
+
+**Fix:**
+Removed the invalid code accessing `rateLimit.prototype` and kept only the correct fix:
 ```javascript
 app.set("trust proxy", 1);
 ```
-This tells Express (and the rate limiter) that it's safe to trust the first proxy (Render's load balancer) for IP address resolution.
+This single line correctly handles the proxy headers from Render without needing to monkey-patch the library.
+
 
 ## Next Steps
 1.  **Commit these changes:**
