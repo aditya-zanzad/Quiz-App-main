@@ -45,7 +45,9 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import { resetDailyChallenges } from "./controllers/gamificationController.js";
 
 
-
+rateLimit.prototype.defaults.validate = {
+  xForwardedForHeader: false
+};
 const app = express();
 app.set('trust proxy', 1);
 
