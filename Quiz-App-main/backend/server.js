@@ -44,6 +44,8 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 // Gamification controller
 import { resetDailyChallenges } from "./controllers/gamificationController.js";
 
+app.set('trust proxy', 1);
+
 const app = express();
 
 // 🔒 SECURITY: Headers
@@ -64,7 +66,7 @@ app.use(helmet({
 
 // 🔒 Rate limiting
 
-app.set('trust proxy', 1);
+
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
