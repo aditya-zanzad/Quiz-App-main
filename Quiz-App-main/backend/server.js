@@ -46,6 +46,9 @@ import { resetDailyChallenges } from "./controllers/gamificationController.js";
 
 const app = express();
 
+// ✅ Trust Proxy for Render/Heroku (Required for Rate Limiting)
+app.set("trust proxy", 1);
+
 // 🔒 SECURITY: Headers
 app.use(requestLogger);
 app.use(helmet({

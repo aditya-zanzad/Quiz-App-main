@@ -8,7 +8,7 @@ dotenv.config();
 
 // Only throw error in production, allow tests to run without API key
 if (!process.env.HUGGINGFACE_API_KEY && process.env.NODE_ENV !== "test") {
-    throw new Error("🚫 HUGGINGFACE_API_KEY is missing from .env file!");
+    logger.warn("⚠️ HUGGINGFACE_API_KEY is missing from .env file! AI features for written tests will fail.");
 }
 
 const hf = process.env.HUGGINGFACE_API_KEY ? new HfInference(process.env.HUGGINGFACE_API_KEY) : null;
