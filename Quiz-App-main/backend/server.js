@@ -86,7 +86,8 @@ const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10,
     message: { error: "Too many authentication attempts, please try again later." },
-    skip: (req) => req.method === "OPTIONS"
+    skip: (req) => req.method === "OPTIONS",
+    validate: { xForwardedForHeader: false }
 });
 
 // Middlewares
